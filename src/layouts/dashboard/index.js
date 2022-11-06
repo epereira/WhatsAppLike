@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { useTheme } from "@mui/material/styles";
 import { Avatar, Box, Divider, IconButton } from "@mui/material";
 import { Outlet } from "react-router-dom";
@@ -11,18 +11,15 @@ import { faker } from "@faker-js/faker";
 import useSettings from "../../hooks/useSettings";
 import MaterialUISwitch from "../../components/MaterialUISwitch";
 
-
-
 const DashboardLayout = () => {
   const theme = useTheme();
   const [selected, setSelected] = useState(0);
   const { onToggleMode } = useSettings();
 
-  //console.log(theme);
-
   return (
-    <>
+    <Stack direction="row" spacing={0}>
       <Box
+        p={2}
         sx={{
           backgroundColor: theme.palette.background.paper,
           boxShadow: "0px 0px 2px rgba(0,0,0,0.25)",
@@ -36,14 +33,13 @@ const DashboardLayout = () => {
           spacing={3}
           paddingBottom={4}
           justifyContent="space-between"
-          sx={{ height: " 100%" }}
+          sx={{ height: "100%" }}
         >
           <Stack alignItems={"center"} spacing={4}>
             <Box
-              marginTop={2}
               sx={{
                 backgroundColor: theme.palette.primary.main,
-                juqstifyContent: "space-between",
+                justifyContent: "space-between",
                 height: 64,
                 width: 64,
                 borderRadius: 1.5,
@@ -108,8 +104,9 @@ const DashboardLayout = () => {
           </Stack>
         </Stack>
       </Box>
+
       <Outlet />
-    </>
+    </Stack>
   );
 };
 
