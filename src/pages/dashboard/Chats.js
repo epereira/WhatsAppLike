@@ -1,4 +1,3 @@
- import { faker } from "@faker-js/faker";
 import {
   Avatar,
   Badge,
@@ -44,7 +43,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const ChatElement = ({id, name, img, msg, time, unread, online}) => {
+const ChatElement = ({ id, name, img, msg, time, unread, online }) => {
   const theme = useTheme();
   return (
     <Box
@@ -58,26 +57,36 @@ const ChatElement = ({id, name, img, msg, time, unread, online}) => {
       }}
       p={2}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Stack direction="row" alignItems="center" spacing={2}>
-         
-          <StyledBadge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant={online ? 'dot' : 'standard'}
-          >
-            <Avatar alt={name} src={img} />
-          </StyledBadge>
+      <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" justifyContent="center" spacing={2}>
+          <Stack>
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant={online ? "dot" : "standard"}
+            >
+              <Avatar id={id} alt={name} src={img} />
+            </StyledBadge>
+          </Stack>
           <Stack spacing={0.3}>
-            <Typography variant="subtitle2" fontWeight={600}>
+            <Typography
+              variant="subtitle2"
+              fontWeight={600}
+              style={{ overflowWrap: "break-word" }}
+            >
               {name}
             </Typography>
-            <Typography variant="caption" color="text.secondary">
-              {msg}
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              style={{ overflowWrap: "break-word" }}
+            >
+              {msg.slice(0, 18)}
+              {msg.length > 18 && "..."}
             </Typography>
           </Stack>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack direction="column" alignItems="center" spacing={2}>
           <Typography sx={{ fontWeight: 600 }} variant="caption">
             {time}
           </Typography>
@@ -134,11 +143,21 @@ const Chats = () => {
       sx={{
         position: "relative",
         width: 320,
-        backgroundColor: theme.palette.mode === "light" ? "#F8FAFF" : theme.palette.background.default,
+        height: "100%",
+        backgroundColor:
+          theme.palette.mode === "light"
+            ? "#F8FAFF"
+            : theme.palette.background.default,
         boxShadow: "0px 0px 2px rgba(0,0,0,0.25)",
       }}
     >
-      <Stack direction="column" p={3} spacing={2} sx={{height: '100vh'}}>
+      <Stack
+        direction="column"
+        p={3}
+        spacing={2}
+        sx={{ height: "100vh" }}
+        justifyContent="center"
+      >
         <Stack
           direction="row"
           alignItems="center"
@@ -170,22 +189,26 @@ const Chats = () => {
           <Button>Archive</Button>
         </Stack>
         <Divider />
-        <Stack spacing={2} direction="column" sx={{flexGrow: 1, overflow: 'scroll', height: '100%'}}>
+        <Stack
+          spacing={2}
+          direction="column"
+          sx={{ flexGrow: 1, overflow: "scroll", height: "100%" }}
+        >
           <Stack spacing={2}>
             <Stack direction="row">
               <Typography variant="h6" color={"#676767"}>
-                Pinned 
+                Pinned
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 ({ChatList.filter((chat) => chat.pinned).length})
               </Typography>
             </Stack>
             {ChatList.filter((chat) => chat.pinned).map((chat) => {
-              return <ChatElement {...chat} />
+              return <ChatElement {...chat} />;
             })}
           </Stack>
           <Stack spacing={2} direction="column">
-            <Stack direction="row" mt={2}>
+            <Stack direction="row">
               <Typography variant="h6" color={"#676767"}>
                 All chats
               </Typography>
@@ -194,7 +217,7 @@ const Chats = () => {
               </Typography>
             </Stack>
             {ChatList.filter((chat) => !chat.pinned).map((chat) => {
-              return <ChatElement {...chat} />
+              return <ChatElement {...chat} />;
             })}
           </Stack>
         </Stack>
