@@ -56,6 +56,7 @@ const ChatElement = ({ id, name, img, msg, time, unread, online }) => {
         justifyContent: "space-between",
       }}
       p={2}
+      
     >
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="row" justifyContent="center" spacing={2}>
@@ -106,7 +107,8 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: "100%",
+  width: 200,
+
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -127,10 +129,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-
     borderRadius: 20,
     boxShadow: "0px 0px 2px rgba(0,0,0,0.25)",
   },
@@ -204,7 +202,7 @@ const Chats = () => {
               </Typography>
             </Stack>
             {ChatList.filter((chat) => chat.pinned).map((chat) => {
-              return <ChatElement {...chat} />;
+              return <ChatElement {...chat} key={chat.id}/>;
             })}
           </Stack>
           <Stack spacing={2} direction="column">
@@ -217,7 +215,7 @@ const Chats = () => {
               </Typography>
             </Stack>
             {ChatList.filter((chat) => !chat.pinned).map((chat) => {
-              return <ChatElement {...chat} />;
+              return <ChatElement {...chat} key={chat.id} />;
             })}
           </Stack>
         </Stack>

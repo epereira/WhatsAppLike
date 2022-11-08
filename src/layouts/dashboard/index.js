@@ -4,7 +4,7 @@ import { Avatar, Box, Divider, IconButton } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { Nav_Buttons } from "../../data";
-import Logo from "../../assets/Images/logo.ico";
+import Logo from "../../assets/images/logo.ico";
 import { Gear } from "phosphor-react";
 import { useState } from "react";
 import { faker } from "@faker-js/faker";
